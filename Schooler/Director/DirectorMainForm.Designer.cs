@@ -41,6 +41,7 @@
             this.учащиесяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.классыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -104,6 +105,7 @@
             this.SchoolboysDataGridView.ReadOnly = true;
             this.SchoolboysDataGridView.Size = new System.Drawing.Size(412, 393);
             this.SchoolboysDataGridView.TabIndex = 0;
+            this.SchoolboysDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SchoolboysDataGridView_CellContentDoubleClick);
             // 
             // tabPage2
             // 
@@ -160,6 +162,8 @@
             // 
             // учащиесяToolStripMenuItem
             // 
+            this.учащиесяToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.добавитьToolStripMenuItem1});
             this.учащиесяToolStripMenuItem.Name = "учащиесяToolStripMenuItem";
             this.учащиесяToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.учащиесяToolStripMenuItem.Text = "Учащиеся";
@@ -175,9 +179,16 @@
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.добавитьToolStripMenuItem.Text = "Добавить";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.AddClassToolStripMenuItem_Click);
+            // 
+            // добавитьToolStripMenuItem1
+            // 
+            this.добавитьToolStripMenuItem1.Name = "добавитьToolStripMenuItem1";
+            this.добавитьToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.добавитьToolStripMenuItem1.Text = "Добавить";
+            this.добавитьToolStripMenuItem1.Click += new System.EventHandler(this.AddSchoolboyToolStripMenuItem1_Click);
             // 
             // DirectorMainForm
             // 
@@ -222,5 +233,6 @@
         private System.Windows.Forms.ToolStripMenuItem учащиесяToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem классыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem1;
     }
 }

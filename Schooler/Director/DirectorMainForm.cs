@@ -31,7 +31,11 @@ namespace Schooler.Director
         private async void UpdateSchoolboysDataGridView()
         {
             using (Database.Model.Context db = new Database.Model.Context())
-                SchoolboysDataGridView.DataSource = await db.schoolboy.ToListAsync();
+                SchoolboysDataGridView.DataSource = await db.schoolboy
+                    .Include(x => x.attendance)
+                    .Include(x => x._class)
+                    .Include(x => x.QRKod)
+                    .ToListAsync();
         }
 
         /// <summary>
@@ -84,6 +88,41 @@ namespace Schooler.Director
             Shared.EditClassForm ecf = new Shared.EditClassForm(cCl);
             ecf.FormClosed += Ecf_FormClosed;
             ecf.ShowDialog();
+        }
+
+        /// <summary>
+        /// Событие нажатия кнопки добавления нового учащегося из меню
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddSchoolboyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Shared.EditSchoolboyForm esf = new Shared.EditSchoolboyForm();
+            esf.FormClosed += Esf_FormClosed;
+            esf.ShowDialog();
+        }
+
+        private void Esf_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UpdateSchoolboysDataGridView();
+        }
+
+        /// <summary>
+        /// Открытие формы изменения по двойному щелку на строку таблицы SchoolboysDataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SchoolboysDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Guid guid = Guid.Parse(SchoolboysDataGridView.Rows[e.RowIndex].Cells["guid"].Value.ToString());
+
+            schoolboy sc = null;
+            using (Database.Model.Context db = new Database.Model.Context())
+                sc = db.schoolboy.Find(guid);
+
+            Shared.EditSchoolboyForm esf = new Shared.EditSchoolboyForm(sc);
+            esf.FormClosed += Esf_FormClosed;
+            esf.ShowDialog();
         }
     }
 }

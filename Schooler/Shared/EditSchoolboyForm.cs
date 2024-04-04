@@ -1,12 +1,8 @@
-﻿using Schooler.Database.Model;
+﻿using MessagingToolkit.QRCode.Codec;
+using Schooler.Database.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Data.Entity;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Schooler.Shared
@@ -29,7 +25,19 @@ namespace Schooler.Shared
 
         private void EditSchoolboyForm_Load(object sender, EventArgs e)
         {
-            if (schoolboy != null) FillInfo();
+            FillClasses();
+            if (schoolboy != null)
+            {
+                FillInfo();
+                GetQRCode();
+            }
+        }
+
+        private async void FillClasses()
+        {
+            using (Database.Model.Context db = new Context())
+                ClassComboBox.DataSource = await db._class.ToListAsync();
+            ClassComboBox.DisplayMember = "name_class";
         }
 
         private void FillInfo()
@@ -41,18 +49,52 @@ namespace Schooler.Shared
             PhoneMaskedTextBox.Text = schoolboy.contacts;
         }
 
+        // Отображение QR-кода при условии, что запись об учащемся уже существует
+        private void GetQRCode()
+        {
+            QRCodeEncoder encoder = new QRCodeEncoder();
+            Bitmap qrCode = encoder.Encode(schoolboy.guid.ToString());
+            QRPictureBox.Image = qrCode;
+        }
+
         private void EditButton_Click(object sender, EventArgs e)
         {
             // Добавление
             if (schoolboy == null)
             {
+                Database.Model.schoolboy sc = new schoolboy();
+                sc.guid = Guid.NewGuid();
+                sc.surname = SurnameTextBox.Text;
+                sc.name = NameTextBox.Text;
+                sc.patronymic = PatronymicTextBox.Text;
+                sc.date_of_birth = BirthDateTimePicker.Value;
+                sc.contacts = PhoneMaskedTextBox.Text;
+                sc.id_class = (ClassComboBox.SelectedItem as _class).id_class;
 
+                using (Database.Model.Context db = new Context())
+                {
+                    db.schoolboy.Add(sc);
+                    db.SaveChanges();
+                }
             }
             // Изменение
             else
             {
+                using (Database.Model.Context db = new Context())
+                {
+                    var cSc = db.schoolboy.Find(schoolboy.guid);
 
+                    cSc.surname = SurnameTextBox.Text;
+                    cSc.name = NameTextBox.Text;
+                    cSc.patronymic = PatronymicTextBox.Text;
+                    cSc.date_of_birth = BirthDateTimePicker.Value;
+                    cSc.contacts = PhoneMaskedTextBox.Text;
+                    cSc.id_class = (ClassComboBox.SelectedItem as _class).id_class;
+
+                    db.SaveChanges();
+                }
             }
+            this.Close();
         }
     }
 }
