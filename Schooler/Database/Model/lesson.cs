@@ -13,7 +13,6 @@ namespace Schooler.Database.Model
         public lesson()
         {
             attendance = new HashSet<attendance>();
-            class_lesson = new HashSet<class_lesson>();
         }
 
         [Key]
@@ -35,10 +34,11 @@ namespace Schooler.Database.Model
 
         public TimeSpan end_time { get; set; }
 
+        public long id_class { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<attendance> attendance { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<class_lesson> class_lesson { get; set; }
+        public virtual _class _class { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace Schooler.Database.Model
 
         public virtual DbSet<attendance> attendance { get; set; }
         public virtual DbSet<_class> _class { get; set; }
-        public virtual DbSet<class_lesson> class_lesson { get; set; }
         public virtual DbSet<lesson> lesson { get; set; }
         public virtual DbSet<QRKod> QRKod { get; set; }
         public virtual DbSet<schoolboy> schoolboy { get; set; }
@@ -29,6 +28,11 @@ namespace Schooler.Database.Model
             modelBuilder.Entity<_class>()
                 .Property(e => e.classroom_teacher)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<_class>()
+                .HasMany(e => e.lesson)
+                .WithRequired(e => e._class)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<lesson>()
                 .Property(e => e.name_predmet)

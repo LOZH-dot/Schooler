@@ -1,13 +1,6 @@
 ﻿using Schooler.Database.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.Entity;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Schooler.Director
@@ -46,7 +39,8 @@ namespace Schooler.Director
             using (Database.Model.Context db = new Database.Model.Context())
                 ClassesDataGridView.DataSource = await db._class
                     .Include(x => x.schoolboy)
-                    .Include(x => x.class_lesson).ToListAsync();
+                    .Include(x => x.lesson)
+                    .ToListAsync();
         }
 
         private void DirectorMainForm_FormClosed(object sender, FormClosedEventArgs e)

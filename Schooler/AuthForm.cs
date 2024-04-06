@@ -33,6 +33,8 @@ namespace Schooler
                         StateSingleton.getInstance().authState = AuthState.Director;
                     else if (db.Database.SqlQuery<int>("SELECT IS_MEMBER('ADMINISTRATOR')").First() == 1)
                         StateSingleton.getInstance().authState = AuthState.Sysadmin;
+                    else if (db.Database.SqlQuery<int>("SELECT IS_MEMBER('TEACHER')").First() == 1)
+                        StateSingleton.getInstance().authState = AuthState.Teacher;
 
                 }
                 catch
@@ -56,6 +58,9 @@ namespace Schooler
                     this.Hide();
                     break;
                 case AuthState.Teacher:
+                    Teacher.MainTeacherForm mtf = new Teacher.MainTeacherForm();
+                    mtf.Show();
+                    this.Hide();
                     break;
                 default:
                     break;

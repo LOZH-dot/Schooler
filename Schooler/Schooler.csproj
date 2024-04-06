@@ -67,7 +67,6 @@
     <Compile Include="AuthState.cs" />
     <Compile Include="Database\Model\attendance.cs" />
     <Compile Include="Database\Model\class.cs" />
-    <Compile Include="Database\Model\class_lesson.cs" />
     <Compile Include="Database\Model\Context.cs" />
     <Compile Include="Database\Model\lesson.cs" />
     <Compile Include="Database\Model\QRKod.cs" />
@@ -94,6 +93,18 @@
       <DependentUpon>EditSchoolboyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StateSingleton.cs" />
+    <Compile Include="Teacher\MainTeacherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher\MainTeacherForm.Designer.cs">
+      <DependentUpon>MainTeacherForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\ScanQRCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher\ScanQRCodeForm.Designer.cs">
+      <DependentUpon>ScanQRCodeForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AuthForm.resx">
       <DependentUpon>AuthForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +126,12 @@
     <EmbeddedResource Include="Shared\EditSchoolboyForm.resx">
       <DependentUpon>EditSchoolboyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Teacher\MainTeacherForm.resx">
+      <DependentUpon>MainTeacherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher\ScanQRCodeForm.resx">
+      <DependentUpon>ScanQRCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -131,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Admin\" />
-    <Folder Include="Teacher\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

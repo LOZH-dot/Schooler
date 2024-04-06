@@ -12,8 +12,8 @@ namespace Schooler.Database.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public _class()
         {
+            lesson = new HashSet<lesson>();
             schoolboy = new HashSet<schoolboy>();
-            class_lesson = new HashSet<class_lesson>();
         }
 
         [Key]
@@ -28,9 +28,9 @@ namespace Schooler.Database.Model
         public string classroom_teacher { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<schoolboy> schoolboy { get; set; }
+        public virtual ICollection<lesson> lesson { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<class_lesson> class_lesson { get; set; }
+        public virtual ICollection<schoolboy> schoolboy { get; set; }
     }
 }
